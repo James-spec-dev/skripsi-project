@@ -1,0 +1,229 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                <!--[ All Ticket section ] starts-->
+                              <!--   <div class="col-md-5 col-xl-4">
+                                    <div class="card yearly-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">All Ticket</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-1"><i
+                                                            class="feather icon-file text-dark f-30 m-r-10"></i>{{allt}}</h3>
+                                                </div>
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme" role="progressbar"
+                                                        style="width: 100%;" aria-valuenow="70" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ All Ticket section ] end-->
+                                <!--[ Pending section ] start-->
+                               <!--  <div class="col-md-5 col-xl-4">
+                                    <div class="card daily-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">Pending</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-1"><i
+                                                            class="feather icon-alert-octagon text-c-purple f-30 m-r-10"></i>{{pending}}</h3>
+                                                </div>
+
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-0">{{p}}%</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme" role="progressbar"
+                                                        style="width: {{p}}%;" aria-valuenow="{{p}}" aria-valuemin="0"
+                                                        aria-valuemax="{{allt}}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ Pending section ] end-->
+                                <!--[ Open section ] start-->
+                                <!-- <div class="col-md-5 col-xl-4">
+                                    <div class="card daily-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">Open</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-1"><i
+                                                            class="feather icon-check text-c-blue f-30 m-r-10"></i>{{open}}</h3>
+                                                </div>
+
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-0">{{o}}%</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme2" role="progressbar"
+                                                        style="width: {{o}}%;" aria-valuenow="50" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ Open section ] end-->
+                                <!--[ process section ] start-->
+                                <!-- <div class="col-md-5 col-xl-4">
+                                    <div class="card daily-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">On Process</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-1"><i
+                                                            class="feather icon-edit text-c-yellow f-30 m-r-10"></i>{{process}}</h3>
+                                                </div>
+
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-0">{{pr}}%</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme3" role="progressbar"
+                                                        style="width: {{pr}}%;" aria-valuenow="50" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ Process section ] end-->
+                                <!--[ Finish section ] starts-->
+                                <!-- <div class="col-md-5 col-xl-4">
+                                    <div class="card Monthly-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">Finish</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-1"><i
+                                                            class="feather icon-check-square text-c-green f-30 m-r-10"></i>{{finish}}</h3>
+                                                </div>
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-0">{{f}}%</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme2" role="progressbar"
+                                                        style="width: {{f}}%;" aria-valuenow="35" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ Finish section ] end-->
+                                <!--[ Closed section ] starts-->
+                                <!-- <div class="col-md-5 col-xl-4">
+                                    <div class="card yearly-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-3">Closed</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-1"><i
+                                                            class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>{{closed}}</h3>
+                                                </div>
+                                                <div class="col-12 text-right">
+                                                    <p class="m-b-0">{{c}}%</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height: 7px;">
+                                                <div class="progress-bar progress-c-theme" role="progressbar"
+                                                        style="width: {{c}}%;" aria-valuenow="70" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--[ Closed section ] end-->
+                                <!-- section for list ticket -->
+                                <div class="col-xl-12 col-md-6">
+                                    <div class="card Recent-Users">
+                                        <div class="card-header">
+                                            <h5>List Ticket</h5>
+                                        </div>
+                                        <div class="card-block px-0 py-3">
+                                            <div class="card-block">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover" id="basic-datatables">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ticket ID</th>
+                                                            <th>Reported by</th>
+                                                            <th>NIM</th>
+                                                            <th>complaint type</th>
+                                                            <th>Category</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                       {% for tiket in tiket_list %}
+                                                        <tr>
+                                                            <th scope="row"><a href="{% url 'tiket:detail' tiket.tiket_move.slug %}" class="text-info">{{tiket.tiket_move.tiket}}</a></th>
+
+                                                            <td>{{tiket.tiket_move.mahasiswa}}</td>
+                                                            {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                                                                <td>Front Desk</td>
+                                                                {% else %}
+                                                                <td>{{tiket.tiket_move.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+                                                            <td>{{tiket.tiket_move.judul}}</td>
+                                                            <td>{{tiket.tiket_move.kategori}}</td>
+                                                            <td>{{tiket.tiket_move.date|date}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- closed section fo list ticket -->
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->            
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script >
+        $(document).ready(function() {
+            $('#basic-datatables').DataTable({
+            });
+        });
+</script>
+{% endblock javascripts %}

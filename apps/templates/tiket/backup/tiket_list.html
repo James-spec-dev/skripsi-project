@@ -1,0 +1,103 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} All Ticket {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">All Tiket</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">All Ticket</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>All Ticket</h5>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                        	<div class="table-responsive">
+                                                <table id="basic-datatables" class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ticket ID</th>
+                                                            <th>Reported by</th>
+                                                            <th>NIM</th>
+                                                            <th>complaint type</th>
+                                                            <th>Category</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for tiket in tiket_list %}
+                                                        <tr>
+                                                            <th scope="row"><a href="{% url 'tiket:detail' tiket.slug %}" class="text-info">{{tiket.tiket}}</a></th>
+                                                            {% if not request.user.first_name %}
+                                                                    <td>{{tiket.mahasiswa.username}}</td>
+                                                                {% else %}
+										      <td>{{tiket.mahasiswa.get_full_name}}</td>
+                                                            {% endif %}
+
+                                                            {% if not request.user.mahasiswa.nim %}
+                                                                    <td>Front Desk</td>
+                                                                {% else %}
+										      <td>{{tiket.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+										      <td>{{tiket.jenis_aduan}}</td>
+										      <td>{{tiket.kategori}}</td>
+										      <td>{{move_list}}
+                                                {% if tiket.status == 'pending' %}
+                                                        <p class="text-c-purple">{{tiket.status}}</p>
+                                                    {% elif tiket.status == 'open' %}
+                                                        <p class="text-c-blue">{{tiket.status}}</p>
+                                                    {% elif tiket.status == 'process' %}
+                                                        <p class="text-c-yellow">{{tiket.status}}</p>
+                                                    {% elif tiket.status == 'finish' %}
+                                                        <p class="text-c-green">{{tiket.status}}</p>
+                                                    {% elif tiket.status == 'closed' %}
+                                                        <p class="text-c-red">{{tiket.status}}</p>
+                                                {% endif %}
+                                              </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script >
+        $(document).ready(function() {
+            $('#basic-datatables').DataTable({
+            });
+        });
+    </script>
+{% endblock javascripts %}

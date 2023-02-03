@@ -1,0 +1,71 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} All Ticket {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">All Tiket</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">All Ticket</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>Update Ticket</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <h5>Tiket anda adalah : {{tiket.tiket}}</h5>
+                                        	<form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <label for="{{form.judul.id_for_label}}">{{form.judul.label}}</label>
+                                            {{form.judul}}
+
+                                            <label for="{{form.aduan.id_for_label}}">{{form.aduan.label}}</label>
+                                            <textarea name="{{form.aduan.name}}" class="form-control" id="{{form.aduan.id_for_label}}">{{ tiket.aduan }}</textarea>
+
+                                            <label for="{{form.kategori.id_for_label}}">{{form.kategori.label}}</label>
+                                            {{form.kategori}}
+
+                                            <label for="{{form.file.id_for_label}}">{{form.file.label}}</label>
+                                            {{form.file}}
+
+                                            <!-- <label for="{{form.status.id_for_label}}"></label>
+                                            <input type="text"{% if tiket.status %} hidden value="{{ tiket.status }}" {% endif %} name="{{form.status.name}}" class="form-control" id="{{form.status.id_for_label}}"> -->
+
+                                            <button type="Submit" class="btn btn-primary mt-3 "> Kirim</button>
+                                        </form>
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}

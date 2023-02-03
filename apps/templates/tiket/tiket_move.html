@@ -1,0 +1,121 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} All Ticket {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">All Tiket</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">All Ticket</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>All Ticket</h5>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                            {% if user.groups.all.0.name == 'kaur'  %}
+                                            <div class="btn-group mb-2 mr-2">
+                                                <button type="button" class="btn btn-primary">Cetak</button>
+                                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Cetak</span></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="{% url 'tiket:createpdf' %}">pdf</a>
+                                  <!--                   <a class="dropdown-item" href="#!">Another action</a>
+                                                    <a class="dropdown-item" href="#!">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#!">Separated link</a> -->
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        	<div class="table-responsive">
+                                                <table id="basic-datatables" class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ticket ID</th>
+                                                            <th>Reported by</th>
+                                                            <th>NIM</th>
+                                                            <th>complaint type</th>
+                                                            <th>Category</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for tiket in status %}
+                                                        <tr>
+                                                            {% if request.user.mahasiswa.nim %}
+                                                            <th scope="row"><a href="{% url 'tiket:detail' tiket.tiket_move.slug %}" class="text-info">{{tiket.tiket_move.tiket}}</a></th>
+                                                            {% else %}
+                                                            <th scope="row"><a href="{% url 'tiket:detailmove' tiket.id %}" class="text-info">{{tiket.tiket_move.tiket}}</a></th>
+                                                            {% endif %}
+
+                                                            <td>{{tiket.tiket_move.mahasiswa}}</td>
+                                                            {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                                                                <td>Front Desk</td>
+                                                                {% else %}
+                                                                <td>{{tiket.tiket_move.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+                                                            <td>{{tiket.tiket_move.judul}}</td>
+                                                            <td>{{tiket.tiket_move.kategori}}</td>
+                                                            <td>
+                                                                {% if tiket.state_move.state_name == 'Pending' %}
+                                                                <p class="text-c-purple">{{tiket.state_move.state_name}}</p>
+                                                                {% elif tiket.state_move.state_name == 'Open' %}
+                                                                <p class="text-c-blue">{{tiket.state_move.state_name}}</p>
+                                                                {% elif tiket.state_move.state_name == 'process' %}
+                                                                <p class="text-c-yellow">{{tiket.state_move.state_name}}</p>
+                                                                {% elif tiket.state_move.state_name == 'Finish' %}
+                                                                    {% if request.user.mahasiswa.nim %}
+                                                                        <script>window.alert("Aduan Anda sudah selesai, silakan cek aduan anda dengan menekan tombol finish")</script>
+                                                                        <p class="text-c-green"><a href="{% url 'tiket:detailmove' tiket.id %}">{{tiket.state_move.state_name}}</a></p>
+                                                                    {% else %}
+                                                                        <p class="text-c-green">{{tiket.state_move.state_name}}</a></p>
+                                                                    {% endif %}
+                                                                {% elif tiket.state_move.state_name == 'Closed' %}
+                                                                <p class="text-c-red">{{tiket.state_move.state_name}}</p>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script >
+        $(document).ready(function() {
+            $('#basic-datatables').DataTable({
+            });
+        });
+    </script>
+{% endblock javascripts %}

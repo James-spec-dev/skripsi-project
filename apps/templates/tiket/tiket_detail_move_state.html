@@ -1,0 +1,124 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ticket Detail {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h3 class="m-b-10">Ticket Detail</h3>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">Ticket Detail</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>Ticket Detail</h5>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr> 
+                                                            <th>Tentang</th>
+                                                            <th class="text-center">Isi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Judul Tiket</th>
+                                                            <td class="text-center">{{tiket.tiket_move.judul}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Tiket</th>
+                                                            <td class="text-center">{{tiket.tiket_move.tiket}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Kategori</th>
+                                                            <td class="text-center">{{tiket.tiket_move.kategori}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Tanggal Dibuat</th>
+                                                            <td class="text-center">{{tiket.tiket_move.date}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Pembuat Aduan</th>
+                                                            {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                                                                <td class="text-center">{{tiket.tiket_move.mahasiswa.username}}</td>
+                                                            {% else %}
+                                                                <td class="text-center">{{tiket.tiket_move.mahasiswa.get_full_name}}</td>
+                                                            {% endif %}
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">NIM Pembuat Aduan</th>
+                                                            {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                                                                <td class="text-center">Front Desk</td>
+                                                                {% else %}
+                                                                <td class="text-center">{{tiket.tiket_move.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Email Pembuat Aduan</th>
+                                                            <td class="text-center">{{tiket.tiket_move.mahasiswa.mahasiswa.user.email}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-12">
+                                            <div class="accordion" id="accordionExample">
+                                                {% if request.user.mahasiswa.nim %}
+                                                <div class="card">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h5 class="mb-0"><a href="#!" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Komentar dari Staf</a></h5>
+                                                    </div>
+                                                    <div id="collapseOne" class=" card-body collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">{{tiket.comment}}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                                <div class="card">
+                                                    <div class="card-header" id="headingTwo">
+                                                        <h5 class="mb-0"><a href="#!" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Rincian Aduan</a></h5>
+                                                    </div>
+                                                    <div id="collapseTwo" class=" card-body collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">{{tiket.tiket_move.aduan}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        <a href="{% url 'tiket:listmove' %}" class="btn btn-dark mr-2">back</a>
+                                        {% if request.user.mahasiswa.nim %}
+                                            <a href="{% url 'tiket:tiketclosed' tiket.id %}" class="btn btn-info mr-2 text-dark">Done</a>
+                                            <a href="{% url 'tiket:tiketopen' tiket.id %}" class="btn btn-warning mr-2 text-dark">Not Yet</a>
+                                        {% else %}
+                                            <a href="{% url 'tiket:createmove' tiket.id %}" class="btn btn-outline-danger mr-2">kerjakan Tiket</a>
+                                        {% endif %}
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %} {% endblock javascripts %}

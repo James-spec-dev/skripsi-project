@@ -1,0 +1,97 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} All Ticket {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">All Tiket</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">All Ticket</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>All Ticket</h5>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                        	<div class="table-responsive">
+                                                <table id="basic-datatables" class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ticket ID</th>
+                                                            <th>Reported by</th>
+                                                            <th>NIM</th>
+                                                            <th>complaint type</th>
+                                                            <th>Category</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            {% for tiket in status %}
+                                                        <tr>
+                                                            <th scope="row"><a href="{% url 'tiket:detail' tiket.tiket_move.slug %}" class="text-info">{{tiket.tiket_move.tiket}}</a></th>
+                                                            <td>{{tiket.tiket_move.mahasiswa}}</td>
+                                                            {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                                                                <td>Front Desk</td>
+                                                            {% else %}
+                                                                <td>{{tiket.tiket_move.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+                                                            <td>{{tiket.tiket_move.judul}}</td>
+                                                            <td>{{tiket.tiket_move.kategori}}</td>
+                                                            <td>{{tiket.state_move.state_name}}</td>
+                                                            <td>
+                                                                <div class="btn-group mb-2 mr-2">
+                                                                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</button>
+                                                                    <div class="dropdown-menu">
+                                                                        <!-- <a class="dropdown-item" href="{% url 'tiket:update' tiket.id %}">Edit Ticket</a> -->
+                                                                        <a class="dropdown-item text-warning" href="{% url 'tiket:delete' tiket.tiket_move.id %}">Delete Tiket</a>
+                                                                        <a class="dropdown-item text-info" href="{% url 'tiket:createmove' tiket.id %}">Buat Status</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script >
+        $(document).ready(function() {
+            $('#basic-datatables').DataTable({
+            });
+        });
+    </script>
+{% endblock javascripts %}

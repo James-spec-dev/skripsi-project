@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body>
+    <table border="1">
+      <thead style="margin-top:3">
+        <tr>
+          <th scope="col">Tiket</th>
+          <th scope="col">Report By</th>
+          <th scope="col">Jeni Aduan</th>
+          <th scope="col">Aduan</th>
+          <th scope="col">Kategori</th>
+          <th scope="col">Tanggal Pembuatan</th>
+        </tr>
+      </thead>
+      <tbody align="center" style="margin-top:3">
+        {% for tiket in tikets %}
+            <tr align="center">
+                <th scope="row"><a href="{% url 'tiket:detail' tiket.tiket_move.slug %}" class="text-info">{{tiket.tiket_move.tiket}}</a></th>
+
+                <td align="center" style="margin-top:3">{{tiket.tiket_move.mahasiswa}}</td>
+                {% if not tiket.tiket_move.mahasiswa.mahasiswa.nim %}
+                    <td align="center">Front Desk</td>
+                    {% else %}
+                    <td align="center">{{tiket.tiket_move.mahasiswa.mahasiswa.nim}}</td>
+                {% endif %}
+                <td align="center">{{tiket.tiket_move.judul}}</td>
+                <td align="center">{{tiket.tiket_move.kategori}}</td>
+                <td align="center">
+                    {% if tiket.state_move.state_name == 'Pending' %}
+                    <p class="text-c-purple">{{tiket.state_move.state_name}}</p>
+                    {% elif tiket.state_move.state_name == 'Open' %}
+                    <p class="text-c-blue">{{tiket.state_move.state_name}}</p>
+                    {% elif tiket.state_move.state_name == 'process' %}
+                    <p class="text-c-yellow">{{tiket.state_move.state_name}}</p>
+                    {% elif tiket.state_move.state_name == 'Finish' %}
+                    <p class="text-c-green">{{tiket.state_move.state_name}}</p>
+                    {% elif tiket.state_move.state_name == 'Closed' %}
+                    <p class="text-c-red">{{tiket.state_move.state_name}}</p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

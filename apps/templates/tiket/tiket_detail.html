@@ -1,0 +1,112 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ticket Detail {% endblock title %}
+
+{% block stylesheets %} {% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-main-container">
+    	<div class="pcoded-wrapper">
+    		<div class="pcoded-content">
+    			<!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h3 class="m-b-10">Ticket Detail</h3>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:" disabled>Ticket</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">Ticket Detail</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                    	<div class="page-wrapper">
+                    		<div class="row">
+                    			<div class="col-md-12">
+                    				<div class="card">
+                    					<div class="card-header">
+                                            <h5>Detail Ticket {{tiket.tiket}}</h5>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr> 
+                                                            <th>Tentang</th>
+                                                            <th class="text-center">Isi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Judul Tiket</th>
+                                                            <td class="text-center">{{tiket.judul}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Tiket</th>
+                                                            <td class="text-center">{{tiket.tiket}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Kategori</th>
+                                                            <td class="text-center">{{tiket.kategori}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Tanggal Dibuat</th>
+                                                            <td class="text-center">{{tiket.date}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Pembuat Aduan</th>
+                                                            {% if not tiket.mahasiswa.mahasiswa.nim %}
+                                                                <td class="text-center">{{tiket.mahasiswa.username}}</td>
+                                                            {% else %}
+                                                                <td class="text-center">{{tiket.mahasiswa.get_full_name}}</td>
+                                                            {% endif %}
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">NIM Pembuat Aduan</th>
+                                                            {% if not tiket.mahasiswa.mahasiswa.nim %}
+                                                                <td class="text-center">Front Desk</td>
+                                                                {% else %}
+                                                                <td class="text-center">{{tiket.mahasiswa.mahasiswa.nim}}</td>
+                                                            {% endif %}
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Email Pembuat Aduan</th>
+                                                            <td class="text-center">{{tiket.mahasiswa.mahasiswa.user.email}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-12">
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="card">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h5 class="mb-0"><a href="#!" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Rincian Aduan</a></h5>
+                                                    </div>
+                                                    <div id="collapseOne" class=" card-body collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">{{tiket.aduan}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'tiket:listmove' %}" class="btn btn-dark mr-2">back</a>
+                                        {% if request.user.mahasiswa.nim %}
+                                            <a href="{% url 'tiket:update' tiket.id %}" class="btn btn-warning mr-2 text-dark">update</a>
+                                        {% endif %}
+                                        </div>
+                    				</div>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+    		</div>
+    	</div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %} {% endblock javascripts %}

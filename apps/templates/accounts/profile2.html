@@ -1,0 +1,176 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Profile {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Edit Info</h5>
+                                        </div>
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="card-block"> 
+                                                <div class="row"> 
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="{{user_form.username.id_for_label}}">Username</label>
+                                                            <input class="form-control" id="{{user_form.username.id_for_label}}" aria-describedby="emailHelp" readonly value="{{ request.user.username }}">
+                                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label {% if not request.user.email %} class="text-danger" {% endif %} 
+                                                                   for="{{user_form.email.id_for_label}}">E-Mail</label>
+                                                                    {% if not request.user.email %}
+                                                                        {{user_form.email}}
+                                                                    {% else %}
+                                                                        <input type="email"
+                                                                   {% if request.user.email %} readonly value="{{ request.user.email }}" {% endif %} name="{{user_form.email.name}}" 
+                                                                   class="form-control" id="{{user_form.email.id_for_label}}" required aria-describedby="emailHelp" placeholder="Enter email">
+                                                                    {% endif %}
+                                                            {% if not request.user.email %}
+                                                                <small id="emailHelp" class="form-text text-danger">
+                                                                    You don't have an email address associated with this account.
+                                                                </small>
+                                                            {% endif %}   
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="{{user_form.first_name.id_for_label}}">First Name</label>
+                                                            {% if not request.user.first_name %}
+                                                                {{user_form.first_name}}
+                                                            {% else %}
+                                                                <input type="text" {% if request.user.first_name %} readonly value="{{user.first_name}}" {% endif %} name="{{user_form.first_name.name}}" class="form-control" id="{{user_form.first_name.id_for_label}}" aria-describedby="emailHelp" placeholder="Your first name" >
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="{{user_form.last_name.id_for_label}}">Last Name</label>
+                                                            {% if not request.user.last_name %}
+                                                                {{user_form.last_name}}
+                                                            {% else %}
+                                                                <input type="text" {% if request.user.last_name %} readonly value="{{request.user.last_name}}"
+                                                            {% endif %} name="{{user_form.last_name.name}}" class="form-control" id="{{user_form.last_name.id_for_label}}" aria-describedby="emailHelp" placeholder="Your first name" >
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="add">NIM</label>
+                                                            {% if not request.user.mahasiswa.nim %}
+                                                                {{mahasiswa_form.nim}}
+                                                            {% else %}
+                                                                <input type="text" {% if request.user.mahasiswa.nim %} readonly value="{{request.user.mahasiswa.nim}}" {% endif %} name="{{mahasiswa_form.nim.name}}" class="form-control" id="{{mahasiswa_form.nim.id_for_label}}" aria-describedby="emailHelp" placeholder="Your address">
+                                                            {% endif %}
+                                                            <small id="addd" class="form-text text-muted">This is your shipments address</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="add">Jurusan</label>
+                                                            {% if not request.user.mahasiswa.jurusan %}
+                                                                {{mahasiswa_form.jurusan}}
+                                                            {% else %}
+                                                                <input type="text" {% if request.user.mahasiswa.jurusan %} readonly value="{{request.user.mahasiswa.jurusan}}" {% endif %} name="{{mahasiswa_form.jurusan.name}}" class="form-control" id="{{mahasiswa_form.jurusan.id_for_label}}" aria-describedby="emailHelp" placeholder="Your address">
+                                                            {% endif %}
+                                                            <small id="addd" class="form-text text-muted">This is your shipments address</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-4">
+                                                        <div class="form-group">
+                                                            <label for="abt">No. Handphone </label>
+                                                                <input type="text"  value="{{request.user.mahasiswa.no_hp}}" name="{{mahasiswa_form.no_hp.name}}" class="form-control" id="{{mahasiswa_form.no_hp.id_for_label}}" aria-describedby="emailHelp" placeholder="Bio">
+                                                            <small id="abf" class="form-text text-muted">if you have a new mobile number, please input it</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-4">
+                                                        <div class="form-group">
+                                                            <label for="abt">upload foto</label>
+                                                            {{mahasiswa_form.foto}}
+                                                            <small id="abf" class="form-text text-muted">We'll show this on your profile.</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12 mb-2">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <div class="d-flex align-items-center justify-content-center flex-column">
+                                                <div class="w-50 p-3">
+                                                    <img src="{{ ASSETS_ROOT }}{{request.user.mahasiswa.foto.url}}" alt="profile image"
+                                                        class="img-fluid rounded-circle">
+                                                </div>
+                                                <div class="text-center">
+                                                    <h4 class="font-weight-bold h6">
+                                                        {{ request.user.username }}
+                                                    </h4>
+                                                    <p class="font-italic text-muted">
+                                                        {% if request.user.email %} {{ request.user.email }} {% endif %}
+                                                    </p>
+                                                    <p>
+                                                        {% if request.user.mahasiswa.nim %} {{request.user.mahasiswa.nim}} {% endif %} <br>
+                                                        {% if request.user.mahasiswa.jurusan %} {{request.user.mahasiswa.jurusan}} {% endif %}
+                                                        
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="small font-weight-light mt-4 text-center text-muted">
+                                                <p>
+                                                    This page is your private space.
+                                                    <br />
+                                                </p>
+                                            </div>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-facebook"></i></a>
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-twitter"></i></a>
+                                                <a href="#" class="h6 text-muted d-block m-1"><i
+                                                        class="icon feather icon-instagram"></i></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
